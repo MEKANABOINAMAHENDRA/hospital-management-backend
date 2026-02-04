@@ -15,7 +15,13 @@ import com.coders.hospitalmanagement.model.Patient;
 import com.coders.hospitalmanagement.service.PatientService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(
+		  origins = {
+		    "http://localhost:5173",
+		    "https://hospital-management-frontend-7wqf.onrender.com"
+		  }
+		)
+
 public class PatientController {
 
     @Autowired
