@@ -51,7 +51,8 @@ public class AuthController {
         String role = details.getAuthorities()
                 .iterator()
                 .next()
-                .getAuthority();
+                .getAuthority()
+                .replace("ROLE_", "");
 
         return jwtUtil.generateToken(
             details.getUsername(),
