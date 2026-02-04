@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .authorities("ROLE_" + user.getRole()) // 🔥 FIX
+                .authorities(user.getRole()) // ✅ NO EXTRA ROLE_
                 .build();
     }
 

@@ -1,6 +1,8 @@
 package com.coders.hospitalmanagement.config;
 
 import com.coders.hospitalmanagement.security.JwtFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
