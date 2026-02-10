@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/doctor")
-@PreAuthorize("hasAnyRole('DOCTOR','ADMIN')")   // ✅ IMPORTANT FIX
+//@PreAuthorize("hasAnyRole('DOCTOR','ADMIN')")   // ✅ IMPORTANT FIX
 public class DoctorController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class DoctorController {
 
     // ================= GET ALL DOCTORS (ADMIN) =================
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','PATIENT','NURSE')")
     public List<DoctorResponseDTO> getAllDoctors() {
         return service.getAllDoctors()
                 .stream()
