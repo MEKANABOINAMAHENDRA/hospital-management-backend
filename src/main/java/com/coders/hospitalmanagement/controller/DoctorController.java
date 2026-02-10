@@ -74,6 +74,7 @@ public class DoctorController {
 
     // ================= DOCTOR PROFILE =================
     @GetMapping("/me")
+    @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<?> getMyProfile(Authentication authentication) {
 
         Doctor doctor = service.getDoctorByUsername(authentication.getName());
