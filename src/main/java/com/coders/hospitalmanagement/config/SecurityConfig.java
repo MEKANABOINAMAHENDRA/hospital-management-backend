@@ -26,35 +26,13 @@ public class SecurityConfig {
     public SecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        var config = new org.springframework.web.cors.CorsConfiguration();
-
-        config.setAllowedOrigins(
-            java.util.List.of(
-                "https://hospital-management-frontend-7wqf.onrender.com"
-            )
-        );
-
-        config.setAllowedMethods(
-            java.util.List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-        );
-
-        config.setAllowedHeaders(java.util.List.of("*"));
-        config.setAllowCredentials(true);
-
-        var source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return source;
-    }
-
+    
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-        .cors(org.springframework.security.config.Customizer.withDefaults())
+            .cors(cors -> {})
             .csrf(csrf -> csrf.disable())
 
             .sessionManagement(session ->

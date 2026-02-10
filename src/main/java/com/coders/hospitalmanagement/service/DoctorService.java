@@ -33,7 +33,7 @@ public class DoctorService {
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setRole("ROLE_DOCTOR");
+        user.setRole("DOCTOR");
         user = userRepo.save(user);
 
         // 2️⃣ Fetch Department
