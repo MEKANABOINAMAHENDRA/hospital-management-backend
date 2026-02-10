@@ -88,6 +88,9 @@ public class SecurityConfig {
 
 //                .requestMatchers("/doctor/me")
 //                    .hasRole("DOCTOR")
+                    
+                    .requestMatchers(HttpMethod.GET, "/doctor")
+                    .hasAnyRole("ADMIN", "DOCTOR", "PATIENT","NURSE")
 
                 .requestMatchers(HttpMethod.GET, "/doctor/prescriptions")
                     .hasRole("DOCTOR")
