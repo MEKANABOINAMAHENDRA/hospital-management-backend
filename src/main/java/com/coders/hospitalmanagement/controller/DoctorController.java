@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/doctor")
+@PreAuthorize("hasRole('DOCTOR')")
 public class DoctorController {
 
     @Autowired
@@ -74,7 +75,7 @@ public class DoctorController {
 
     // ================= DOCTOR PROFILE =================
     @GetMapping("/me")
-    @PreAuthorize("hasRole('DOCTOR')")
+  
     public ResponseEntity<?> getMyProfile(Authentication authentication) {
 
         Doctor doctor = service.getDoctorByUsername(authentication.getName());
