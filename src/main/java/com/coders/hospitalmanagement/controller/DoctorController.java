@@ -16,7 +16,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/doctor")
-@PreAuthorize("hasRole('DOCTOR')")
+@PreAuthorize("hasAnyRole('DOCTOR','ADMIN')")   // ✅ IMPORTANT FIX
 public class DoctorController {
 
     @Autowired
@@ -32,8 +32,9 @@ public class DoctorController {
         return DoctorMapper.toResponse(doctor);
     }
 
-    // ================= GET =================
+    // ================= GET ALL DOCTORS (ADMIN) =================
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<DoctorResponseDTO> getAllDoctors() {
         return service.getAllDoctors()
                 .stream()
@@ -41,13 +42,14 @@ public class DoctorController {
                 .toList();
     }
 
+    // ================= GET DOCTOR BY ID (ADMIN) =================
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public DoctorResponseDTO getDoctor(@PathVariable int id) {
         return DoctorMapper.toResponse(service.getDoctorById(id));
     }
 
-    // ================= UPDATE =================
+    // ================= UPDATE DOCTOR (ADMIN) =================
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public DoctorResponseDTO updateDoctor(
@@ -57,6 +59,7 @@ public class DoctorController {
         return DoctorMapper.toResponse(service.updateDoctor(id, dto));
     }
 
+    // ================= PATCH DOCTOR (ADMIN) =================
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public DoctorResponseDTO patchDoctor(
@@ -66,16 +69,16 @@ public class DoctorController {
         return DoctorMapper.toResponse(service.patchDoctor(id, dto));
     }
 
-    // ================= DELETE =================
+    // ================= DELETE DOCTOR (ADMIN) =================
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public DoctorResponseDTO deleteDoctor(@PathVariable int id) {
         return DoctorMapper.toResponse(service.deleteDoctor(id));
     }
 
-    // ================= DOCTOR PROFILE =================
+    // ================= DOCTOR PROFILE (SELF) =================
     @GetMapping("/me")
-  
+    @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<?> getMyProfile(Authentication authentication) {
 
         Doctor doctor = service.getDoctorByUsername(authentication.getName());
