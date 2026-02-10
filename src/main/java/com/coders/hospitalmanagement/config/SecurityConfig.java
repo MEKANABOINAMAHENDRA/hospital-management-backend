@@ -80,15 +80,18 @@ public class SecurityConfig {
                     .hasAnyRole("ADMIN", "NURSE")
 
                 // ================= DOCTOR =================
-                .requestMatchers("/doctor/me")
+                    .requestMatchers("/doctor/**")
                     .hasRole("DOCTOR")
+
+//                .requestMatchers("/doctor/me")
+//                    .hasRole("DOCTOR")
 
                 .requestMatchers(HttpMethod.GET, "/doctor/prescriptions")
                     .hasRole("DOCTOR")
 
                 .requestMatchers(HttpMethod.POST, "/doctor/prescription/**")
                     .hasRole("DOCTOR")
-
+                  
                 // ================= APPOINTMENT =================
                 .requestMatchers("/appointment/my")
                     .hasRole("PATIENT")
